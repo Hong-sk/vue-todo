@@ -1,0 +1,19 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "todoContents": "todolist 만들기",
+      "author": "홍성권"
+    },
+    {
+      "id": 2,
+      "todoContents": "vue 인강듣기",
+      "author": "홍성권"
+    },
+    {
+      "id": 3,
+      "todoContents": "typescript 실습",
+      "author": "홍성권"
+    }
+  ]
+}
