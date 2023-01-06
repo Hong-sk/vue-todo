@@ -1,7 +1,7 @@
 <template>
 	<ul>
-		<li v-for="todo in todos" :key="todo.id">
-			<!-- <TodoItem :todo="todo" /> -->
+		<li v-for="todo in todos.todoItems" :key="todo.id">
+			<TodoItem :todo="todo" />
 			{{ todo }}
 		</li>
 	</ul>
@@ -15,34 +15,20 @@ import axios from "axios";
 export default {
 	components: { TodoItem },
 	setup() {
-		let todos = reactive([]);
+		let todos = reactive({
+			todoItems: [],
+		});
 		watchEffect(async () => {
 			const { data } = await axios.get(`http://localhost:3001/todos`);
 			// console.log(data);
-			todos = data;
-			console.log(todos);
+			todos.todoItems = data;
 		});
 
-		const getTodos = async () => {
-			const { data } = await axios.get(`http://localhost:3001/todos`);
-			// console.log(data);
-			todos = data;
-			// console.log(todos);
-		};
-
-		getTodos();
-
-		// watch(
-		// todos,
-		// async () => {
+		// const getTodos = async () => {
 		// 	const { data } = await axios.get(`http://localhost:3001/todos`);
-		// 	todos.todos = [...data];
-		// 	console.log(todos);
-		// },
-		// {
-		// 	immediate: true,
-		// },
-		// );
+		// 	// console.log(data);
+		// 	todos = data;
+		// };
 
 		return { todos };
 	},
