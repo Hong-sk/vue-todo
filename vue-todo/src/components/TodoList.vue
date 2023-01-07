@@ -2,14 +2,14 @@
 	<ul>
 		<li v-for="todo in todos.todoItems" :key="todo.id">
 			<TodoItem :todo="todo" />
-			{{ todo }}
+			<button :click="deleteTodo">제거</button>
 		</li>
 	</ul>
 </template>
 
 <script>
 import TodoItem from "./TodoItem.vue";
-import { watchEffect, reactive, watch } from "vue";
+import { watchEffect, reactive } from "vue";
 import axios from "axios";
 
 export default {
@@ -18,19 +18,24 @@ export default {
 		let todos = reactive({
 			todoItems: [],
 		});
+
+		const getData = async () => {
+			const { data } = await axios.get(`http://localhost:3001/todos`);
+			// console.log(data);
+			todos.todoItems = data;
+		};
+
+		// watchEffect(getData);
+
 		watchEffect(async () => {
 			const { data } = await axios.get(`http://localhost:3001/todos`);
 			// console.log(data);
 			todos.todoItems = data;
 		});
 
-		// const getTodos = async () => {
-		// 	const { data } = await axios.get(`http://localhost:3001/todos`);
-		// 	// console.log(data);
-		// 	todos = data;
-		// };
+		const deleteTodo = () => {};
 
-		return { todos };
+		return { todos, deleteTodo };
 	},
 };
 </script>
